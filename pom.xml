@@ -59,9 +59,9 @@
 					<s3Bucket>elasticbeanstalk-eu-west-1-475251055456</s3Bucket>
 					<s3Key>${project.artifactId}/${project.build.finalName}-${beanstalk.versionLabel}.jar</s3Key>
 					<cnamePrefix>demo for dev</cnamePrefix>
-					<environmentName>dev</environmentName>
-					<environmentRef>dev</environmentRef>
-					<solutionStack>64bit Amazon Linux 2016.09 v2.4.0 running Java 8</solutionStack>
+					<environmentName>hskdev</environmentName>
+					<environmentRef>hskdev</environmentRef>
+					<solutionStack>64bit Amazon Linux 2017.09 v2.6.5 running Java 8</solutionStack>
 				</configuration>
 			</plugin>
 		</plugins>

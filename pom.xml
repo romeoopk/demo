@@ -47,6 +47,21 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
+
+			<plugin>
+				<groupId>br.com.ingenieux</groupId>
+				<artifactId>beanstalk-maven-plugin</artifactId>
+				<version>1.5.0</version>
+				<configuration>
+					<applicationName>demo</applicationName>
+					<s3Bucket>elasticbeanstalk-eu-west-1-475251055456</s3Bucket>
+					<s3Key>${project.artifactId}/${project.build.finalName}.jar</s3Key>
+					<cnamePrefix>demo for dev</cnamePrefix>
+					<environmentName>dev</environmentName>
+					<environmentRef>dev</environmentRef>
+					<solutionStack>64bit Amazon Linux 2016.09 v2.4.0 running Java 8</solutionStack>
+				</configuration>
+			</plugin>
 		</plugins>
 	</build>
 

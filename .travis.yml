@@ -1,3 +1,3 @@
 language: java
 jdk: oraclejdk8
-script: AWS_ACCESS_KEY_ID="AKIAION2V5FJQLFTFUTQ" AWS_SECRET_KEY="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" mvn clean install beanstalk:upload-source-bundle beanstalk:create-application-version beanstalk:update-environment
+script: AWS_ACCESS_KEY_ID="AKIAJ5PTBAEO34O6OC5Q" AWS_SECRET_KEY="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" mvn clean install beanstalk:upload-source-bundle beanstalk:create-application-version beanstalk:update-environment

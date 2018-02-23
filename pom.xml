@@ -61,7 +61,7 @@
 					<cnamePrefix>demo for dev</cnamePrefix>
 					<environmentName>dev1.eu-west-1.elasticbeanstalk.com</environmentName>
 					<environmentRef>dev1.eu-west-1.elasticbeanstalk.com</environmentRef>
-					<solutionStack>64bit Amazon Linux 2017.09 v2.6.5 running Java 8</solutionStack>
+					<solutionStack>64bit Amazon Linux 2017.09 v2.6.6 running Java 8</solutionStack>
 				</configuration>
 			</plugin>
 		</plugins>

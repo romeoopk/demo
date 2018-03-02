@@ -41,6 +41,26 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-cassandra</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.h2database</groupId>
+			<artifactId>h2</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-jpa</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-actuator</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.hateoas</groupId>
+			<artifactId>spring-hateoas</artifactId>
+		</dependency>
 	</dependencies>
 
 	<build>
@@ -58,9 +78,9 @@
 					<applicationName>demo</applicationName>
 					<s3Bucket>elasticbeanstalk-eu-west-1-475251055456</s3Bucket>
 					<s3Key>${project.artifactId}/${project.build.finalName}-${beanstalk.versionLabel}.jar</s3Key>
-					<cnamePrefix>demo for dev</cnamePrefix>
-					<environmentName>dev1</environmentName>
-					<environmentRef>dev1</environmentRef>
+					<cnamePrefix>demodev4</cnamePrefix>
+					<environmentName>development4</environmentName>
+					<environmentRef>development4</environmentRef>
 					<solutionStack>64bit Amazon Linux 2017.09 v2.6.6 running Java 8</solutionStack>
 				</configuration>
 			</plugin>

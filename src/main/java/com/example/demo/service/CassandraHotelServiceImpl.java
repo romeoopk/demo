@@ -1,74 +1,61 @@
 package com.example.demo.service;
 
 import com.example.demo.cassandra.domain.Hotel;
-import com.example.demo.cassandra.domain.HotelByLetter;
-import com.example.demo.cassandra.domain.HotelByLetterKey;
-import com.example.demo.repository.HotelByLetterRepository;
-import com.example.demo.repository.HotelRepository;
+import com.example.demo.cassandra.repository.CassandraHotelRepository;
+import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;
+import org.springframework.data.cassandra.repository.MapId;
+import org.springframework.data.cassandra.repository.support.BasicMapId;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
-import javax.websocket.server.ServerEndpoint;
-import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 @Service
-@Profile("test")
-public class CassandraHotelServiceImpl implements HotelService<Hotel, HotelByLetter> {
+public class CassandraHotelServiceImpl implements HotelService<Hotel> {
 
-    private HotelRepository<Hotel> hotelRepository;
-
-    private HotelByLetterRepository<HotelByLetter, HotelByLetterKey> hotelByLetterRepository;
-
-    public CassandraHotelServiceImpl(HotelRepository hotelRepository,
-                                     HotelByLetterRepository hotelByLetterRepository) {
-        this.hotelRepository = hotelRepository;
-        this.hotelByLetterRepository = hotelByLetterRepository;
-    }
+    @Autowired
+    private CassandraHotelRepository hotelRepository;
 
     @Override
     public Hotel save(Hotel hotel) {
         if (hotel.getId() == null) {
             hotel.setId(UUID.randomUUID());
         }
-        this.hotelRepository.saveHotel(hotel);
-        this.hotelByLetterRepository.saveHotelByLetter(new HotelByLetter(hotel));
+        this.hotelRepository.save(hotel);
         return hotel;
     }
 
     @Override
-    public Hotel update(Hotel hotel) {
-        Hotel existingHotel = this.hotelRepository.findOne(hotel.getId());
+    public Object update(Hotel hotel) {
+        if(hotel.getId() == null)
+            return HttpStatus.BAD_REQUEST;
+        Hotel existingHotel = this.hotelRepository.findOne(BasicMapId.id("id", hotel.getId()));
         if (existingHotel != null) {
-            this.hotelByLetterRepository.deleteByHotelLetterKey(new HotelByLetter(existingHotel).getHotelByLetterKey());
-            this.hotelRepository.delete(hotel.getId());
-            this.hotelRepository.saveHotel(hotel);
-            this.hotelByLetterRepository.saveHotelByLetter(new HotelByLetter(hotel));
+            this.hotelRepository.delete(BasicMapId.id("id", hotel.getId()));
+            hotel = this.hotelRepository.save(hotel);
         }
+        else
+            return HttpStatus.NOT_FOUND;
+
         return hotel;
     }
 
     @Override
     public Hotel findOne(UUID uuid) {
-        return this.hotelRepository.findOne(uuid);
+        return this.hotelRepository.findOne(BasicMapId.id("id", uuid));
     }
 
     @Override
     public void delete(UUID uuid) {
-        Hotel hotel = this.hotelRepository.findOne(uuid);
+
+        Hotel hotel = this.hotelRepository.findOne(BasicMapId.id("id", uuid));
         if (hotel != null) {
-            this.hotelRepository.delete(uuid);
-            this.hotelByLetterRepository.deleteByHotelLetterKey(new HotelByLetter(hotel).getHotelByLetterKey());
+            this.hotelRepository.delete(BasicMapId.id("id", uuid));
+            //this.hotelByLetterRepository.deleteByHotelLetterKey(new HotelByLetter(hotel).getHotelByLetterKey());
         }
     }
 
-    @Override
-    public List<HotelByLetter> findHotelsStartingWith(String letter) {
-        return this.hotelByLetterRepository.findByFirstLetter(letter);
-    }
-
-    @Override
-    public List<Hotel> findHotelsInState(String state) {
-        return this.hotelRepository.findByState(state);
-    }
 }

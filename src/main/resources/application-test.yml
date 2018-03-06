@@ -1,0 +1,13 @@
+server:
+  port: 5000
+
+spring:
+  data:
+    cassandra:
+      keyspace-name: sample
+      contact-points: localhost
+      port: 9043
+
+management:
+  security:
+    enabled: false

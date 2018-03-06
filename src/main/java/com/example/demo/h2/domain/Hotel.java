@@ -1,5 +1,6 @@
 package com.example.demo.h2.domain;
 
+import com.example.demo.marker.TableMarker;
 import org.springframework.data.cassandra.mapping.PrimaryKey;
 import javax.persistence.*;
 
@@ -9,13 +10,13 @@ import java.util.UUID;
 
 @Entity
 @Table(name = "hotels")
-public class Hotel implements Serializable {
+public class Hotel implements Serializable, TableMarker {
 
     private static final long serialVersionUID = 1L;
 
     @Id
     @Column(name="id")
-    private UUID id;
+    private String id;
 
     @Column(name="name")
     private String name;
@@ -36,7 +37,7 @@ public class Hotel implements Serializable {
         this.name = name;
     }
 
-    public UUID getId() {
+    public String getId() {
         return id;
     }
 
@@ -52,7 +53,7 @@ public class Hotel implements Serializable {
         return this.zip;
     }
 
-    public void setId(UUID id) {
+    public void setId(String id) {
         this.id = id;
     }
 

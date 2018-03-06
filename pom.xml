@@ -9,7 +9,7 @@
 	<packaging>jar</packaging>
 
 	<name>demo</name>
-	<description>Demo project for Spring Boot</description>
+	<description>Database switch based on the profile</description>
 
 	<parent>
 		<groupId>org.springframework.boot</groupId>
@@ -21,10 +21,11 @@
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-		<java.version>1.8</java.version>
+		<java.version>1.7</java.version>
         <maven.build.timestamp.format>yyyyMMddHHmmss</maven.build.timestamp.format>
         <beanstalk.versionLabel>${maven.build.timestamp}</beanstalk.versionLabel>
 	</properties>
+
 
 	<dependencies>
 		<dependency>
@@ -49,10 +50,10 @@
 			<groupId>com.h2database</groupId>
 			<artifactId>h2</artifactId>
 		</dependency>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-data-jpa</artifactId>
-		</dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-jpa</artifactId>
+        </dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-actuator</artifactId>
@@ -61,6 +62,48 @@
 			<groupId>org.springframework.hateoas</groupId>
 			<artifactId>spring-hateoas</artifactId>
 		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-devtools</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-databind</artifactId>
+			<version>2.6.3</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-lang3</artifactId>
+			<version>3.7</version>
+		</dependency>
+
+        <dependency>
+            <groupId>com.datastax.cassandra</groupId>
+            <artifactId>cassandra-driver-core</artifactId>
+            <version>3.4.0</version>
+        </dependency>
+		<dependency>
+			<groupId>org.cassandraunit</groupId>
+			<artifactId>cassandra-unit-spring</artifactId>
+			<version>3.1.3.2</version>
+			<exclusions>
+				<exclusion>
+					<groupId>org.cassandraunit</groupId>
+					<artifactId>cassandra-unit</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<dependency>
+			<groupId>org.cassandraunit</groupId>
+			<artifactId>cassandra-unit-shaded</artifactId>
+			<version>3.1.3.2</version>
+		</dependency>
+		<dependency>
+			<groupId>org.hectorclient</groupId>
+			<artifactId>hector-core</artifactId>
+			<version>2.0-0</version>
+		</dependency>
+
 	</dependencies>
 
 	<build>
@@ -70,22 +113,8 @@
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
 
-			<plugin>
-				<groupId>br.com.ingenieux</groupId>
-				<artifactId>beanstalk-maven-plugin</artifactId>
-				<version>1.5.0</version>
-				<configuration>
-					<applicationName>demo</applicationName>
-					<s3Bucket>elasticbeanstalk-eu-west-1-475251055456</s3Bucket>
-					<s3Key>${project.artifactId}/${project.build.finalName}-${beanstalk.versionLabel}.jar</s3Key>
-					<cnamePrefix>demodev4</cnamePrefix>
-					<environmentName>development4</environmentName>
-					<environmentRef>development4</environmentRef>
-					<solutionStack>64bit Amazon Linux 2017.09 v2.6.6 running Java 8</solutionStack>
-				</configuration>
-			</plugin>
 		</plugins>
-	</build>
 
+	</build>
 
 </project>

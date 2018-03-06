@@ -1,11 +1,7 @@
 package com.example.demo.util;
 
-import com.example.demo.h2.domain.Hotel;
 import com.example.demo.marker.TableMarker;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.env.Environment;
-import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 

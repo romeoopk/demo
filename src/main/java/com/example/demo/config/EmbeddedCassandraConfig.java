@@ -12,6 +12,8 @@ import org.springframework.context.annotation.Profile;
 import org.springframework.core.env.Environment;
 import org.springframework.data.cassandra.core.CassandraOperations;
 import org.springframework.data.cassandra.core.CassandraTemplate;
+import org.springframework.data.cassandra.mapping.BasicCassandraMappingContext;
+import org.springframework.data.cassandra.mapping.CassandraMappingContext;
 import org.springframework.data.cassandra.repository.config.EnableCassandraRepositories;
 
 import static java.lang.Integer.parseInt;
@@ -52,6 +54,12 @@ public class EmbeddedCassandraConfig {
         cqlDataLoader.load(new ClassPathCQLDataSet("cql/schema.cql", false, true, environment.getProperty("spring.data.cassandra.keyspace-name")));
         return cqlDataLoader;
     }
+
+    @Bean
+    public CassandraMappingContext mappingContext() {
+        return new BasicCassandraMappingContext();
+    }
+
 
     @Bean
     public CassandraOperations cassandraTemplate() throws Exception {
